@@ -1,12 +1,11 @@
-// import Event from "./Event";
+import Event from "./Event";
 
 const EventList = ({ events }) => {
   return (
     <ul id="event-list">
-      {
-        //events ? events.map((event) => <Event event={event} />) : null}
-        events ? events.map((event) => <p>{JSON.stringify(event)} </p>) : null
-      }
+      {events
+        ? events.map((event) => <Event key={event.id} event={event} />)
+        : null}
     </ul>
   );
 };
