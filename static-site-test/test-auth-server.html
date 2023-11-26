@@ -43,7 +43,6 @@
     </main>
 
     <script type="text/javascript">
-      //append
       const getAuthUrlButton = document.getElementById("getAuthUrlButton");
       const resultElement = document.getElementById("result");
       const resultLink = document.getElementById("authURL");
@@ -57,9 +56,7 @@
           })
           .then(function (json) {
             const result = JSON.stringify(json);
-            // we get the value of authUrl
             const { authUrl } = JSON.parse(result);
-            // then add it to the html
             resultElement.innerText = result;
             resultLink.href = authUrl;
           });
@@ -88,7 +85,6 @@
           });
       };
 
-      // -- STEP 3
       const getEvents = document.getElementById("getEvents");
       const events = document.getElementById("events");
       const getCalendarEvents =

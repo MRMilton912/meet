@@ -56,3 +56,5 @@ Scenario: As a user, I should be able to see charts displaying event details so 
 Given: User is on events page
 When: User selects chart view
 Then: A chart is shown with the number of upcoming events in each city
+
+Serverless functions will play a pivotal role authorizing users who want to access event data from the Google Calendar API. I chose AWS Lamda for its scalability and ease of use so I don't have to focus on managing a server myself, using the Serverless Toolkit. Lambda functions are implemented for authenticating users by obtaining an access token from the authorization server on the cloud and data processing.
