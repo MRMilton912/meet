@@ -4,7 +4,7 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 import { render } from "@testing-library/react";
 import mockData from "../mock-data";
-import Event from "../components/Event"; //?
+import Event from "../components/Event";
 import userEvent from "@testing-library/user-event";
 
 const mock = mockData[0];
