@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
+const CitySearch = ({ allLocations = [], setCurrentCity, setInfoAlert }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -23,7 +23,7 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
     } else {
       infoText = "";
     }
-    setInfoAlert(infoText);
+    setInfoAlert && setInfoAlert(infoText);
   };
 
   useEffect(() => {

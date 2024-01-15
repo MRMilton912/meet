@@ -25,8 +25,10 @@ const checkToken = async (accessToken) => {
 const getToken = async (code) => {
   const encodeCode = encodeURIComponent(code);
   const response = await fetch(
-    "YOUR_GET_ACCESS_TOKEN_ENDPOINT" + "/" + encodeCode //lambda
-  );
+    "https://iyttvof8w1.execute-api.us-east-1.amazonaws.com/dev/api/token" +
+      "/" +
+      encodeCode //lambda get access
+  ); //https://us-east-2.console.aws.amazon.com/console/home?nc2=h_ct&region=us-east-2&src=header-signin#api/token
   const { access_token } = await response.json();
   access_token && localStorage.setItem("access_token", access_token);
 
@@ -42,7 +44,9 @@ export const getAccessToken = async () => {
     const searchParams = new URLSearchParams(window.location.search);
     const code = await searchParams.get("code");
     if (!code) {
-      const response = await fetch("YOUR_GET_EVENTS_API_ENDPOINT");
+      const response = await fetch(
+        "https://iyttvof8w1.execute-api.us-east-1.amazonaws.com/dev/api/get-auth-url"
+      );
       const result = await response.json();
       const { authUrl } = result;
       return (window.location.href = authUrl);
@@ -68,7 +72,10 @@ const removeQuery = () => {
 };
 
 export const getEvents = async () => {
-  if (window.location.href.startsWith("http://localhost")) {
+  if (
+    window.location.href.startsWith("http://localhost") &&
+    process.env.NODE_ENV === "test"
+  ) {
     return mockData;
   } //NProgress
 
@@ -76,7 +83,10 @@ export const getEvents = async () => {
 
   if (token) {
     removeQuery();
-    const url = "YOUR_GET_EVENTS_API_ENDPOINT" + "/" + token;
+    const url =
+      "https://iyttvof8w1.execute-api.us-east-1.amazonaws.com/dev/api/get-events" +
+      "/" +
+      token;
     const response = await fetch(url);
     const result = await response.json();
     if (result) {

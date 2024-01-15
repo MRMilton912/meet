@@ -18,3 +18,5 @@ console.error = (...args) => {
   );
   if (!ignoreMessage) originalError(...args);
 };
+
+process.env.NODE_ENV = "test";
