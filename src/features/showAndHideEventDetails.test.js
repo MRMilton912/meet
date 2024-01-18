@@ -1,35 +1,31 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 /* eslint-disable testing-library/no-node-access */
 import { loadFeature, defineFeature } from "jest-cucumber";
-import { render, waitFor, within } from "@testing-library/react";
+import { render, waitFor, within, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "../App";
 
-const feature = loadFeature("./src/features/showAndHideEventsDetails.feature");
+const feature = loadFeature("./src/features/showAndHideEventDetails.feature");
 
 defineFeature(feature, (test) => {
   //SCENARIO 1
-  test("An event element is collapsed by default.", ({ given, when, then }) => {
+  test("An event element is collapsed by default", ({ given, when, then }) => {
     let AppComponent;
     given("the user first opens the app", () => {
       AppComponent = render(<App />);
     });
 
-    when(
-      "the user recieves the full list of events (specific for the city or all events)",
-      async () => {
-        const AppDOM = AppComponent.container.firstChild;
-        const EventListDOM = AppDOM.querySelector("#event-list");
+    when("the user recieves the full list of events", async () => {
+      const AppDOM = AppComponent.container.firstChild;
+      const EventListDOM = AppDOM.querySelector("#event-list");
 
-        await waitFor(() => {
-          const EventListItems =
-            within(EventListDOM).queryAllByRole("listitem");
-          expect(EventListItems.length).toBe(32);
-        });
-      }
-    );
+      await waitFor(() => {
+        const EventListItems = within(EventListDOM).queryAllByRole("listitem");
+        expect(EventListItems.length).toBe(32);
+      });
+    });
 
-    then("all events will colapse by default.", () => {
+    then("all events are collapsed by default", () => {
       const EventDOM = AppComponent.container.firstChild;
       const details = EventDOM.querySelector(".details");
       expect(details).not.toBeInTheDocument();
@@ -53,9 +49,8 @@ defineFeature(feature, (test) => {
       });
     });
 
-    when("a user selects an event's details", async () => {
-      const button = AppComponent.queryAllByText("Show Details")[0];
-
+    when("a user selects event details button", async () => {
+      const button = AppComponent.queryAllByText("show details")[0];
       await userEvent.click(button);
     });
 
@@ -83,7 +78,7 @@ defineFeature(feature, (test) => {
         expect(eventList[0]).toBeTruthy();
       });
 
-      button = AppComponent.queryAllByText("Show Details")[0];
+      button = AppComponent.queryAllByText("show details")[0];
       await userEvent.click(button);
 
       const EventDOM = AppComponent.container.firstChild;
@@ -91,7 +86,7 @@ defineFeature(feature, (test) => {
       expect(details).toBeInTheDocument();
     });
 
-    when("the user presses a button to hide event's details", async () => {
+    when("the user presses a button to hide details", async () => {
       await userEvent.click(button);
     });
 
